@@ -18,7 +18,7 @@
 // Constants for the environment and learning
 const int grid_size = 100;
 int num_agents = grid_size /5;
-const int num_episodes = 10000;
+const int num_episodes = 1000;
 const int max_steps = 10000;
 const double learning_rate = 0.5;
 const double discount_factor = 0.9;
@@ -190,7 +190,7 @@ void initialize_chunk(std::vector<std::vector<int>>& grid, int start_row, int en
             else if (rand_value < 0.43)
             {
                 grid[i][j] = -999;
-            }
+            } 
             else
             {
                 grid[i][j] = 0;
@@ -356,8 +356,6 @@ void modify_agents(std::vector<Agent>& agents, const std::vector<std::pair<int, 
             {-1, -1}, {-1, 0}, {-1, 1},{ 0, -1}, { 0,  1},{ 1, -1}, { 1,  0}, { 1,  1}
         };
 
-        std::vector<Agent> parents;
-        //parents.reserve(2); // Reserve space for 2 elements
         int index = 0;
 
         for (const auto& offset : offsets)
@@ -543,7 +541,8 @@ int main()
                 agent.position = new_position;
             }
 
-            
+            // Code responsible for the Game of Life rules, comment them out if you want regular RL
+
             // Create and update agent count map
             std::unordered_map<std::pair<int, int>, int, PairHash> birth_count_map;
             std::unordered_map<std::pair<int, int>, int, PairHash> death_count_map;
@@ -557,9 +556,13 @@ int main()
             // Add new agents to these positions
             modify_agents(agents, valid_sqaures, deadly_squares, grid);
             
+
+
+
+
             place_agents_on_grid(grid, agents);
 
-
+            // Option to visualise the grid and pause it after each step for observation
             //visualize_grid(grid, agents);
             //system("pause");
         }
